@@ -1,0 +1,236 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Locust Dashboard",
+    "originalTitle": "Locust Dashboard",
+    "tags": [
+      
+    ],
+    "style": "dark",
+    "timezone": "browser",
+    "editable": true,
+    "hideControls": false,
+    "sharedCrosshair": false,
+    "rows": [
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "250px",
+        "panels": [
+          {
+            "aliasColors": {
+              
+            },
+            "bars": false,
+            "datasource": "statsd",
+            "editable": true,
+            "error": false,
+            "fill": 1,
+            "grid": {
+              "leftLogBase": 1,
+              "leftMax": null,
+              "leftMin": null,
+              "rightLogBase": 1,
+              "rightMax": null,
+              "rightMin": null,
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 1,
+            "legend": {
+              "avg": false,
+              "current": false,
+              "max": false,
+              "min": false,
+              "show": true,
+              "total": false,
+              "values": false
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [
+              
+            ],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              
+            ],
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "alias": "200",
+                "column": "value",
+                "function": "mean",
+                "query": "select value\/10 from locust.requests_200.counter",
+                "rawQuery": true,
+                "series": "select value from locust.requests_200.counter"
+              },
+              {
+                "alias": "ALL",
+                "column": "value",
+                "function": "mean",
+                "query": "select value\/10 from locust.requests.counter",
+                "rawQuery": true,
+                "series": "locust.requests.counter",
+                "target": ""
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Requests",
+            "tooltip": {
+              "shared": true,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "x-axis": true,
+            "y-axis": true,
+            "y_formats": [
+              "short",
+              "short"
+            ]
+          }
+        ],
+        "title": "Row"
+      },
+      {
+        "title": "New row",
+        "height": "250px",
+        "editable": true,
+        "collapse": false,
+        "panels": [
+          {
+            "title": "Response Time",
+            "error": false,
+            "span": 12,
+            "editable": true,
+            "type": "graph",
+            "id": 2,
+            "datasource": "statsd",
+            "renderer": "flot",
+            "x-axis": true,
+            "y-axis": true,
+            "y_formats": [
+              "ms",
+              "short"
+            ],
+            "grid": {
+              "leftLogBase": 1,
+              "leftMax": null,
+              "rightMax": null,
+              "leftMin": null,
+              "rightMin": null,
+              "rightLogBase": 1,
+              "threshold1": null,
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "lines": true,
+            "fill": 1,
+            "linewidth": 2,
+            "points": false,
+            "pointradius": 5,
+            "bars": false,
+            "stack": false,
+            "percentage": false,
+            "legend": {
+              "show": true,
+              "values": false,
+              "min": false,
+              "max": false,
+              "current": false,
+              "total": false,
+              "avg": false
+            },
+            "nullPointMode": "connected",
+            "steppedLine": false,
+            "tooltip": {
+              "value_type": "cumulative",
+              "shared": true
+            },
+            "timeFrom": null,
+            "timeShift": null,
+            "targets": [
+              {
+                "function": "mean",
+                "column": "value",
+                "rawQuery": true,
+                "query": "select value from locust.request_time.timer.mean",
+                "alias": "Average Response Time"
+              }
+            ],
+            "aliasColors": {
+              
+            },
+            "seriesOverrides": [
+              
+            ],
+            "links": [
+              
+            ]
+          }
+        ]
+      }
+    ],
+    "nav": [
+      {
+        "collapse": false,
+        "enable": true,
+        "notice": false,
+        "now": true,
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "status": "Stable",
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ],
+        "type": "timepicker"
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "templating": {
+      "list": [
+        
+      ]
+    },
+    "annotations": {
+      "list": [
+        
+      ]
+    },
+    "refresh": "5s",
+    "schemaVersion": 6,
+    "version": 3
+  },
+  "overwrite": false
+}
