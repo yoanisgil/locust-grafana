@@ -1,0 +1,1 @@
+{"access": "direct", database: "statsd" ,isDefault: "false","name": "test","password": "root","type": "influxdb_08","url": "http://192.168.59.103:8083","user": "root"}
