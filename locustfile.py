@@ -10,6 +10,28 @@ statsd = TCPStatsClient(host=os.environ.get('STATSD_HOST', '192.168.59.103'),
                      prefix=os.environ.get('STATSD_PREFIX', 'locust')) 
 
 
+def init_influxdb_():
+    influxdb_url = os.environ.get('INFLUXDB_HOST', 'http://192.168.59.103:8086')
+
+    session = requests.Session()
+
+    http_status = [200, 400, 403, 404, 500, 503]
+
+    prefix = os.environ.get('STATSD_PREFIX', 'locust')
+    influxdb_user = os.environ.get('INFLUXDB_USER', 'root')
+    influxdb_password = os.environ.get('INFLUXDB_PASSWORD', 'root')
+    post_url = '%s/db/statsd/series?u=%s&p=%s' % (influxdb_url, influxdb_user, influxdb_password)
+
+    for status in http_status:
+        print "adding counter for %s" % status
+        payload = [{
+                    "name" : "%s.requests_%s.counter" % (prefix, status),
+                    "columns" : ["value"],
+                    "points" : [[0]]
+                   }]
+        response = session.post(post_url, data=json.dumps(payload), headers={'Content-Type': 'application/json'})
+        print response.text
+
 def init_grafana_dashboard():
    grafana_url = os.environ.get('GRAFANA_URL', 'http://192.168.59.103:3000')
 
@@ -45,6 +67,7 @@ def init_grafana_dashboard():
        response = session.post('%s/api/dashboards/db/' % grafana_url, data=dashboard_json, headers=headers)
        print  response.json()
 
+init_influxdb_()
 init_grafana_dashboard()
 
 class UserBehavior(TaskSet):

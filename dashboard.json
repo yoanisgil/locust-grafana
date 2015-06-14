@@ -74,6 +74,23 @@
                 "series": "select value from locust.requests_200.counter"
               },
               {
+                "alias": "400",
+                "column": "value",
+                "function": "mean",
+                "query": "select value\/10 from locust.requests_400.counter",
+                "rawQuery": true,
+                "series": "select value from locust.requests_400.counter"
+              },
+              {
+                "alias": "503",
+                "column": "value",
+                "function": "mean",
+                "query": "select value\/10 from locust.requests_503.counter",
+                "rawQuery": true,
+                "series": "select value from locust.requests_503.counter"
+              },
+
+              {
                 "alias": "ALL",
                 "column": "value",
                 "function": "mean",
