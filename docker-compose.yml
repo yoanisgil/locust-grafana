@@ -1,0 +1,41 @@
+locust:
+    image: yoanisgil/locust:latest
+    ports:
+        - "8089:8089"
+        - "5000:5000"
+    env_file: ./config.env
+    links:
+        - influxdb
+        - statsd
+        - grafana
+    volumes:
+        - ./locustfile.py:/src/app/locustfile.py
+        - ./dashboard.json:/src/app/dashboard.json
+    working_dir: /src/app
+statsd:
+    image: shakr/statsd-influxdb 
+    ports:
+        - "8126:8126"
+        - "8125:8125/tcp" 
+        - "8125:8125/udp"
+    environment:
+        INFLUXDB_HOST: influxdb
+        INFLUXDB_DATABASE: statsd
+        INFLUXDB_USERNAME: root
+        INFLUXDB_PASSWORD: root
+        STATSD_DEBUG: True
+    volumes:
+        - ./config.js:/statsd/config.js
+    links:
+        - influxdb
+influxdb:
+    image: tutum/influxdb
+    ports:
+        - "8083:8083"
+        - "8086:8086"
+    environment:
+        PRE_CREATE_DB: statsd
+grafana:
+    image: grafana/grafana
+    ports:
+        - "3000:3000"

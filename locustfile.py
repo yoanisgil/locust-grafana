@@ -1,3 +1,5 @@
+from requests.exceptions import ConnectionError
+
 from locust import HttpLocust, TaskSet, task
 from statsd import TCPStatsClient, StatsClient
 import requests
@@ -9,6 +11,25 @@ statsd = TCPStatsClient(host=os.environ.get('STATSD_HOST', '192.168.59.103'),
                      port=os.environ.get('STATSD_PORT', 8125), 
                      prefix=os.environ.get('STATSD_PREFIX', 'locust')) 
 
+
+def post_with_retries(session, url, payload, headers):
+    backoff = 0
+    retries = 10
+    while retries > 0:
+        try:
+            response = session.post(url, data=json.dumps(payload), headers=headers)
+            print response.text
+            break
+        except ConnectionError, e:
+            print "Retrying in %s seconds" % 2**backoff
+            time.sleep(2**backoff)
+            backoff += 1 
+
+        retries -= - 1
+    
+    if retries == 0:
+        raise e
+    
 
 def init_influxdb_():
     influxdb_url = os.environ.get('INFLUXDB_HOST', 'http://192.168.59.103:8086')
@@ -29,8 +50,7 @@ def init_influxdb_():
                     "columns" : ["value"],
                     "points" : [[0]]
                    }]
-        response = session.post(post_url, data=json.dumps(payload), headers={'Content-Type': 'application/json'})
-        print response.text
+        post_with_retries(session, post_url, payload, {'Content-Type': 'application/json'})
 
 def init_grafana_dashboard():
    grafana_url = os.environ.get('GRAFANA_URL', 'http://192.168.59.103:3000')
