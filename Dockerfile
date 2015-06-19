@@ -1,12 +1,13 @@
-FROM ubuntu:14.04
+FROM python:2.7.10
 MAINTAINER "Yoanis Gil <gil.yoanis@gmail.com>"
 
-RUN apt-get update && \
-    apt-get install -y python-dev python-pip && \
-    apt-get clean 
-
 ADD requirements.txt /
-RUN pip install -r requirements.txt
+
+RUN apt-get update && \
+    apt-get install -y python-dev && \
+    pip install --no-cache-dir -r requirements.txt && \
+    apt-get autoremove -y python-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 ADD . /src/app
 
