@@ -6,9 +6,9 @@ A basic demo showing integration between locustio.io and grafana, with statsd as
 Setup
 ===================
 
-Install project dependencies (you should probably use [virtualenv](https://virtualenv.pypa.io/en/latest/):
+Install project dependencies (you should probably use [virtualenv](https://virtualenv.pypa.io/en/latest/)):
     
-    - pip install -r requirements.txt
+    $ pip install -r requirements.txt
 
 
 I recommend that you install [docker-compose](https://docs.docker.com/compose/) since it will
