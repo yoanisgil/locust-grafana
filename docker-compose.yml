@@ -29,7 +29,7 @@ statsd:
     links:
         - influxdb
 influxdb:
-    image: tutum/influxdb
+    image: tutum/influxdb:0.8.8
     ports:
         - "8083:8083"
         - "8086:8086"
