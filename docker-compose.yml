@@ -36,6 +36,6 @@ influxdb:
     environment:
         PRE_CREATE_DB: statsd
 grafana:
-    image: grafana/grafana
+    image: grafana/grafana:2.0.1
     ports:
         - "3000:3000"
