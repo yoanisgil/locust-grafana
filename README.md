@@ -10,7 +10,7 @@ I recommend that you install [docker-compose](https://docs.docker.com/compose/) 
 get you setup in no time. Once docker-compose is installed you can launch the project with:
 
 ```
-docker-compose run locust --service-ports --host=http://www.google.com
+docker-compose run --service-ports locust --host=http://www.google.com
 ```
 
 Depending on your hardware resources you might need to fire the command above twice since it takes a while to steup grafana and InfluxDB for the first time. Just hit Ctrl+C and relaunch the command and you should be good to go (I intended to fix this by adding an exponential backoff check on influxdb/grafana endpoints rediability).
