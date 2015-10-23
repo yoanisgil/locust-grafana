@@ -6,6 +6,14 @@ A basic demo showing integration between locustio.io and grafana, with statsd as
 Setup
 ===================
 
+First you need to fine tune the environment variables:
+
+```
+cp config.env.dist config.env
+```
+
+and make sure ip addresses are set to a reachable one.
+
 I recommend that you install [docker-compose](https://docs.docker.com/compose/) since it will
 get you setup in no time. Once docker-compose is installed you can launch the project with:
 
