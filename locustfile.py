@@ -17,6 +17,7 @@ def post_with_retries(session, url, payload, headers):
     retries = 10
     while retries > 0:
         try:
+            print url, os.environ
             response = session.post(url, data=json.dumps(payload), headers=headers)
             print response.text
             return response
@@ -66,8 +67,6 @@ def init_grafana_dashboard():
 
    response = post_with_retries(session, "%s/login"% grafana_url , payload, headers)
    data = response.json()
-
-   print data
 
    if 'logged in' == data['message'].lower():
        # Create data source
