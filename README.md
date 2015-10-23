@@ -6,22 +6,17 @@ A basic demo showing integration between locustio.io and grafana, with statsd as
 Setup
 ===================
 
-First you need to fine tune the environment variables:
-
-```
-cp config.env.dist config.env
-```
-
-and make sure ip addresses are set to a reachable one.
-
 I recommend that you install [docker-compose](https://docs.docker.com/compose/) since it will
 get you setup in no time. Once docker-compose is installed you can launch the project with:
 
 ```
-docker-compose run --service-ports locust --host=http://www.google.com
+cp docker-compose.yml.dist docker-compose.yml
+docker-compose run --rm --service-ports locust --host=http://www.google.com
 ```
 
-Depending on your hardware resources you might need to fire the command above twice since it takes a while to steup grafana and InfluxDB for the first time. Just hit Ctrl+C and relaunch the command and you should be good to go (I intended to fix this by adding an exponential backoff check on influxdb/grafana endpoints rediability).
+**NOTE**: You might need to change the value of the INFLUXDB_HOST environment variable for the *locust* service in the docker-compose.yml file.  
+
+Depending on your hardware resources you might need to fire the `docker-compose` command twice since it takes a while to steup grafana and InfluxDB for the first time. Just hit Ctrl+C and relaunch the command and you should be good to go (I intended to fix this by adding an exponential backoff check on influxdb/grafana endpoints rediability).
 
 
 And visit the usual locust web interface at http://localhost:8089

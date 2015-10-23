@@ -19,6 +19,7 @@ def post_with_retries(session, url, payload, headers):
         try:
             response = session.post(url, data=json.dumps(payload), headers=headers)
             print response.text
+            return response
             break
         except ConnectionError, e:
             print "Retrying in %s seconds" % 2**backoff
@@ -63,7 +64,7 @@ def init_grafana_dashboard():
 
    session = requests.Session()
 
-   response = session.post("%s/login"% grafana_url , data=json.dumps(payload), headers=headers)
+   response = post_with_retries(session, "%s/login"% grafana_url , payload, headers)
    data = response.json()
 
    print data
